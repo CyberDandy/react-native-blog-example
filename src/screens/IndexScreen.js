@@ -13,23 +13,20 @@ const renderBlogPost = ({item: blogPost}) => {
 const IndexScreen = () => {
     const {state, actions} = useContext(BlogContext);
     const {blogPosts} = state;
-    // const {addBlogPost} = actions;
-
-    console.log(`state: ${JSON.stringify(state)}`);
-    console.log(`actions: ${JSON.stringify(actions)}`);
+    const {addBlogPost} = actions;
 
     return (
         <>
             <Text>
                 Blog Posts
             </Text>
-            {/*<Button*/}
-            {/*    title="Add Post"*/}
-            {/*    onPress={addBlogPost}*/}
-            {/*/>*/}
+            <Button
+                title="Add Post"
+                onPress={addBlogPost}
+            />
             <FlatList
                 data={blogPosts}
-                keyExtrator={blogPost => blogPost.title}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={renderBlogPost}
             />
         </>
