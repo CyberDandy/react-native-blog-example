@@ -3,32 +3,28 @@ import {Text, FlatList, View, Button, TouchableOpacity, StyleSheet} from 'react-
 import { Context as BlogContext } from "../context/BlogContext";
 import {FontAwesome} from "@expo/vector-icons";
 
-const IndexScreen = () => {
+const IndexScreen = ({navigation}) => {
     const {state, actions} = useContext(BlogContext);
     const {blogPosts} = state;
-    const {addBlogPost, deleteBlogPost} = actions;
+    const {deleteBlogPost} = actions;
 
     const renderBlogPost = ({item: blogPost}) => {
         return (
-            <View style={styles.row} >
-                <Text style={styles.title}> {blogPost.title} - {blogPost.id} </Text>
-                <TouchableOpacity onPress={() => deleteBlogPost(blogPost.id)}>
-                    <FontAwesome style={styles.icon}
-                                 name="trash-o"/>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('Show', {id: blogPost.id})}>
+                <View style={styles.row} >
+                    <Text style={styles.title}> {blogPost.title} - {blogPost.id} </Text>
+                    <TouchableOpacity onPress={() => deleteBlogPost(blogPost.id)}>
+                        <FontAwesome style={styles.icon}
+                                     name="trash-o"/>
+                    </TouchableOpacity>
+                </View>
+            </TouchableOpacity>
         );
     };
 
     return (
         <>
-            <Text>
-                Blog Posts
-            </Text>
-            <Button
-                title="Add Post"
-                onPress={addBlogPost}
-            />
+            <Text>INDEX</Text>
             <FlatList
                 data={blogPosts}
                 keyExtractor={(item, index) => index.toString()}
@@ -36,6 +32,16 @@ const IndexScreen = () => {
             />
         </>
     );
+};
+
+IndexScreen.navigationOptions = ({navigation}) => {
+    return {
+        headerRight: <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+            <FontAwesome style={styles.plusButton}
+                         name="plus"
+                         size={30 }/>
+        </TouchableOpacity>
+    }
 };
 
 const styles = StyleSheet.create({
@@ -52,6 +58,9 @@ const styles = StyleSheet.create({
     },
     icon: {
         fontSize: 24
+    },
+    plusButton: {
+        marginRight: 10
     }
 });
 
