@@ -1,4 +1,5 @@
 import createDataContext from "./createDataContext";
+import {call} from "react-native-reanimated";
 
 const ACTIONS = Object.freeze({
     ADD_BLOGPOST: "add_blogpost",
@@ -25,13 +26,15 @@ const blogReducer = (state, action) => {
         case ACTIONS.EDIT_BLOGPOST:
             return {...state,
                 blogPosts: [
-                    ...state.blogPosts.filter((blogPost) => blogPost.id !== payload.id),
-                    {
-                        id: payload.id,
-                        title: payload.title,
-                        content: payload.content
-                    }
-                ]
+                    ...state.blogPosts.map((blogPost) => {
+                        return (blogPost.id === payload.id) ?
+                            {
+                                id: payload.id,
+                                title: payload.title,
+                                content: payload.content
+                            }
+                            : blogPost;
+                    })]
             };
         case ACTIONS.DELETE_BLOGPOST:
             return {
@@ -48,14 +51,20 @@ const blogReducer = (state, action) => {
 const addBlogPost = dispatch => {
     return (title, content, callback) => {
         dispatch({type: ACTIONS.ADD_BLOGPOST, payload: {title, content}});
-        callback();
-    };
+
+        if (callback) {
+            callback();
+        }
+    }
 };
 
 const editBlogPost = dispatch => {
     return (id, title, content, callback) => {
         dispatch({type: ACTIONS.EDIT_BLOGPOST, payload: {id, title, content}});
-        callback();
+
+        if (callback) {
+            callback();
+        }
     };
 };
 

@@ -9,7 +9,6 @@ const ShowScreen = ({navigation}) => {
 
     return (
         <>
-            <Text>SHOW</Text>
             <Text>
                 {blogPost.title}
             </Text>

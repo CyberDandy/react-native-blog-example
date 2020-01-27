@@ -24,7 +24,6 @@ const IndexScreen = ({navigation}) => {
 
     return (
         <>
-            <Text>INDEX</Text>
             <FlatList
                 data={blogPosts}
                 keyExtractor={(item, index) => index.toString()}

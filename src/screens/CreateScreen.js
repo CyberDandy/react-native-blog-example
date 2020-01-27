@@ -9,8 +9,7 @@ const CreateScreen = ({navigation}) => {
 
     return (
         <BlogPostForm texts={{titleTitle: "Enter Title", contentTitle: "Enter Content", submitButtonText: "Add blog post"}}
-                      initialValues={{title: "", content: ""}}
-                      onSubmit={(title, content) => addBlogPost(title, content, () => navigation.navigate('Index'))}
+                      onSubmit={(title, content) => addBlogPost(title, content, () => navigation.pop())}
         />
     );
 };
