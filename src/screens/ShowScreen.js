@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Context as BlogContext} from '../context/BlogContext'
 import {FontAwesome} from "@expo/vector-icons";
-import IndexScreen from "./IndexScreen";
 
 const ShowScreen = ({navigation}) => {
     const {state} = useContext(BlogContext);

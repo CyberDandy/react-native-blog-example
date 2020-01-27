@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {Text, TextInput, Button, StyleSheet} from 'react-native';
+import React, {useContext} from 'react';
+import {StyleSheet} from 'react-native';
 import {Context as BlogContext} from '../context/BlogContext'
 import BlogPostForm from "../components/BlogPostForm";
 
@@ -15,20 +15,7 @@ const CreateScreen = ({navigation}) => {
     );
 };
 
-const styles = StyleSheet.create({
-    label: {
-        fontSize: 20,
-        marginHorizontal: 5,
-        marginBottom: 5
-    },
-    input: {
-        fontSize: 18,
-        borderWidth: 1,
-        borderColor: 'black',
-        marginBottom: 15,
-        padding: 5,
-        margin: 5
-    }
-});
+const styles = StyleSheet.create({}
+);
 
 export default CreateScreen;

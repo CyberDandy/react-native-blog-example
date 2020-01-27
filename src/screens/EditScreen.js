@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {Text, TextInput, Button, StyleSheet} from 'react-native';
+import React, {useContext} from 'react';
+import {StyleSheet} from 'react-native';
 import {Context as BlogContext} from '../context/BlogContext'
 import BlogPostForm from '../components/BlogPostForm'
 
