@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Text, FlatList, View, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import { Context as BlogContext } from "../context/BlogContext";
 import {FontAwesome} from "@expo/vector-icons";
@@ -6,7 +6,7 @@ import {FontAwesome} from "@expo/vector-icons";
 const IndexScreen = ({navigation}) => {
     const {state, actions} = useContext(BlogContext);
     const {blogPosts} = state;
-    const {deleteBlogPost} = actions;
+    const {fetchBlogPosts, deleteBlogPost} = actions;
 
     const renderBlogPost = ({item: blogPost}) => {
         return (
@@ -21,6 +21,10 @@ const IndexScreen = ({navigation}) => {
             </TouchableOpacity>
         );
     };
+
+    useEffect(() => {
+        fetchBlogPosts();
+    }, []);
 
     return (
         <>

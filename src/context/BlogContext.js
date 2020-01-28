@@ -1,7 +1,8 @@
 import createDataContext from "./createDataContext";
-import {call} from "react-native-reanimated";
+import jsonServer from "../api/jsonServer";
 
 const ACTIONS = Object.freeze({
+    FETCH_BLOGPOSTS: "fetch_blogposts",
     ADD_BLOGPOST: "add_blogpost",
     EDIT_BLOGPOST: "edit_blogpost",
     DELETE_BLOGPOST: "delete_blogpost"
@@ -11,6 +12,9 @@ const blogReducer = (state, action) => {
     const {payload} = action;
 
     switch (action.type) {
+        case ACTIONS.FETCH_BLOGPOSTS:
+            const blogPosts = payload.blogPosts;
+            return {blogPosts};
         case ACTIONS.ADD_BLOGPOST:
             return {
                 ...state,
@@ -48,6 +52,14 @@ const blogReducer = (state, action) => {
     }
 };
 
+const fetchBlogPosts = dispatch => {
+    return async () => {
+        const response = await jsonServer.get('/blogposts');
+        const blogPosts = response.data;
+        dispatch({type: ACTIONS.FETCH_BLOGPOSTS, payload: {blogPosts}});
+    }
+}
+
 const addBlogPost = dispatch => {
     return (title, content, callback) => {
         dispatch({type: ACTIONS.ADD_BLOGPOST, payload: {title, content}});
@@ -76,6 +88,6 @@ const deleteBlogPost = dispatch => {
 
 export const { Context, Provider } = createDataContext(
     blogReducer,
-    {addBlogPost, editBlogPost, deleteBlogPost},
-    {blogPosts: [{id: 0, title: "test post", content:"test content"}]}
+    {fetchBlogPosts, addBlogPost, editBlogPost, deleteBlogPost},
+    {blogPosts: []}
     );
